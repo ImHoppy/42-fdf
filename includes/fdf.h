@@ -6,9 +6,15 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:38:20 by mbraets           #+#    #+#             */
-/*   Updated: 2022/02/09 15:38:36 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/02/09 16:13:09 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
+# include "mlx.h"
+# include <math.h>
+
+#include <stdio.h>
+void test();
+#endif

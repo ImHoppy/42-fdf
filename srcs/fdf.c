@@ -6,13 +6,16 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 14:04:15 by mbraets           #+#    #+#             */
-/*   Updated: 2022/02/09 15:38:11 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/02/09 16:12:01 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <stdio.h>
 
 int	main(void)
 {
-	return (1, 0);
+	printf("%f", pow(2, 2));
+	test();
+	return (0);
 }
