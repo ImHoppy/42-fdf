@@ -3,22 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbraets <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: hoppy <hoppy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/11 11:16:36 by mbraets           #+#    #+#              #
-#    Updated: 2022/02/11 11:16:48 by mbraets          ###   ########.fr        #
+#    Updated: 2022/02/14 21:08:12 by hoppy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 EXEC	= fdf
-SRCS	= main.c fdf.c utils.c
+SRCS	= fdf.c utils.c utils_draw.c
 HEADER	= fdf.h
 SRC_D	= srcs/
 OBJ_D	= obj/
 HEAD_D	= includes/
 
-INCLUDE = -Iincludes -Iminilibx -Ilibft
-LBLIBS	= -lmlx -lXext -lX11 -lm -Lminilibx
+INCLUDE = -Iincludes -Iminilibx -Ilibft -Ilibft/gnl
+LBLIBS	= -Lminilibx -Llibft -L/usr/lib -lmlx -lXext -lX11 -lm -lft
 #	
 #	Don't touch
 #	
@@ -47,6 +47,8 @@ $(OBJ_D)%.o: $(SRC_D)%.c $(HEADER_D)
 	$(CC) $(CFLAGS) -o $@ -c $<
 	@printf "$(ccblue)Compiled "$<" successfully!$(ccend)\n"
 $(EXEC): $(OBJ) $(HEADER_D)
+	$(MAKE) -C libft gnl
+	$(MAKE) -C minilibx
 	$(CC) $(LDFLAGS) -o $@ $(OBJ) $(LBLIBS)
 	@printf "$(ccgreen)Compiled "$@" successfully!$(ccend)\n"
 all: $(EXEC)

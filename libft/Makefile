@@ -44,8 +44,8 @@ ft_lstmap.c \
 ft_lstnew.c \
 ft_lstsize.c 
 
-GNL 	= gnl/get_next_line_utils.c \
-gnl/get_next_line.c
+GNL 	= gnl/get_next_line.c \
+gnl/get_next_line_utils.c 
 
 OBJS 	= ${SRCS:.c=.o}
 OBJS_B	= ${SRCS_B:.c=.o}
@@ -72,6 +72,7 @@ bonus: ${OBJS} ${OBJS_B}
 	@ar rcs ${NAME} $^
 
 gnl: ${GNL_O} bonus
+	@echo $<
 	@echo Libft with gnl..
 	@ar rcs ${NAME} $<
 
