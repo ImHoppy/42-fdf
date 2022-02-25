@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoppy <hoppy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 14:04:15 by mbraets           #+#    #+#             */
-/*   Updated: 2022/02/14 21:49:22 by hoppy            ###   ########.fr       */
+/*   Updated: 2022/02/25 16:35:42 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,24 @@
 // 456 = BLUE
 
 // 65307 == esc
-int	fdf_key_hook(int keycode, void *fdf)
+int	fdf_key_hook(int keycode, void *data)
 {
+	t_fdf	*fdf = data;
 	dprintf(1, "%d\n", keycode);
 	if (keycode == 65307)
 	{
+		free_map(fdf, 0);
+
 		fexit(fdf);
 	}
+
+	if (keycode == 65362)
+		fdf->zoom = fdf->zoom + 1;
+	if (keycode == 65364)
+		fdf->zoom = fdf->zoom - 1;
 	return (0);
 }
+/*
 
 int **ft_parse(int fd)
 {
@@ -75,7 +84,6 @@ int **ft_parse(int fd)
 	}
 	return (ret);
 }
-
 int	main(int argc, char **argv)
 {
 	t_fdf	*fdf;
@@ -100,9 +108,9 @@ int	main(int argc, char **argv)
 	fdf->win = mlx_new_window(fdf->mlx, 1280, 720, "Test");
 	if (!fdf->win)
 		fexit(fdf);
-	img.handle = mlx_new_image(fdf->mlx, 1280, 720);
-	img.addr = mlx_get_data_addr(img.handle, &img.bits_per_pixel,
-			&img.line_length, &img.endian);
+	fdf->img.handle = mlx_new_image(fdf->mlx, 1280, 720);
+	fdf->img.addr = mlx_get_data_addr(fdf->img.handle, &fdf->img.bits_per_pixel,
+			&fdf->img.line_length, &fdf->img.endian);
 	// fdf_pixel_put(&img, 5, 5, 0x0000FF00);
 	// fdf_pixel_put(&img, 5, 5, 0xFFFF0000);
 	// fdf_draw_square(&img, 0, 400);
@@ -111,7 +119,7 @@ int	main(int argc, char **argv)
 	//fdf_draw_line(&img, 1, 201, 100);
 	// fdf_draw_circle(&img, 400, 400, 300);
 	// color_map(&img, 100, 100);
-	mlx_put_image_to_window(fdf->mlx, fdf->win, img.handle, 0, 0);
+	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img.handle, 0, 0);
 	mlx_key_hook(fdf->win, &fdf_key_hook, fdf);
 	mlx_loop(fdf->mlx);
 	fexit(fdf);
@@ -122,3 +130,57 @@ int	main(int argc, char **argv)
 // 	char *test = " 43 222  3r4	3";
 // 	printf("%d\n", ft_atoi(test));
 // }
+*/
+
+void	draw(t_fdf *fdf)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < fdf->height)
+	{
+		x = 0;
+		while (x < fdf->width)
+		{
+			fdf_draw_lines(fdf, x, y, x + 1, y);
+			fdf_draw_lines(fdf, x, y, x, y + 1);
+			x++;
+		}
+		y++;
+	}
+}
+int	main(int argc, char **argv)
+{
+	t_fdf	*fdf;
+
+	if (argc != 2)
+		return (2);
+	fdf = malloc(sizeof(struct s_fdf));
+	parse_file(argv[1], fdf);
+	for (int i = 0; i < fdf->height; i++)
+	{
+		for (int j = 0; j < fdf->width; j++)
+		{
+			printf("%3d", fdf->map[i][j]);
+		}
+		printf("\n");
+	}
+	fdf->mlx = mlx_init();
+	if (!fdf->mlx)
+		fexit(fdf);
+	fdf->zoom = 20;
+	fdf->win = mlx_new_window(fdf->mlx, 1000, 1000, "Fdf : mbraets"); // CHECK ERR
+	fdf->img.handle = mlx_new_image(fdf->mlx, 1000, 1000);
+	fdf->img.addr = mlx_get_data_addr(fdf->img.handle, &fdf->img.bits_per_pixel,
+			&fdf->img.line_length, &fdf->img.endian);
+	fdf_draw_lines(fdf, 10, 10, 600, 600);
+	draw(fdf);
+	// mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img.handle, 0, 0);
+	mlx_key_hook(fdf->win, &fdf_key_hook, fdf);
+	mlx_loop(fdf->mlx);
+
+
+	free_map(fdf, 0);
+	fexit(fdf);
+}

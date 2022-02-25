@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hoppy <hoppy@student.42.fr>                +#+  +:+       +#+         #
+#    By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/11 11:16:36 by mbraets           #+#    #+#              #
-#    Updated: 2022/02/14 21:08:12 by hoppy            ###   ########.fr        #
+#    Updated: 2022/02/25 14:40:47 by mbraets          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 EXEC	= fdf
-SRCS	= fdf.c utils.c utils_draw.c
+SRCS	= fdf.c utils.c utils_draw.c parse.c
 HEADER	= fdf.h
 SRC_D	= srcs/
 OBJ_D	= obj/
@@ -26,8 +26,8 @@ SRC			= $(addprefix $(SRC_D), $(SRCS))
 HEADER_D	= $(addprefix $(HEAD_D), $(HEADER))
 OBJ			= $(patsubst $(SRC_D)%.c, $(OBJ_D)%.o, $(SRC))
 CC			= clang
-CFLAGS		= -Wall -Werror -Wextra -pedantic -g -fsanitize=address $(INCLUDE)
-LDFLAGS		= -fsanitize=address
+CFLAGS		= -Wall -Werror -Wextra -pedantic -g  $(INCLUDE)
+LDFLAGS		= 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
 	COLOR = \033

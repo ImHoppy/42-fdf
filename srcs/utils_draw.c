@@ -3,36 +3,81 @@
 /*                                                        :::      ::::::::   */
 /*   utils_draw.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoppy <hoppy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:27:54 by hoppy             #+#    #+#             */
-/*   Updated: 2022/02/14 19:34:20 by hoppy            ###   ########.fr       */
+/*   Updated: 2022/02/25 16:32:57 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	fdf_draw_lines(t_data *img, int beginX, int beginY, int endX, int endY)
+double	mod(double i)
 {
-	double deltaX = endX - beginX; // 10
-	double deltaY = endY - beginY; // 0
-	int pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
+	if (i < 0)
+		return (-i);
+	return (i);
+}
 
-	deltaX /= pixels; // 1
-	deltaY /= pixels; // 0
+void	fdf_draw_lines(t_fdf *fdf, int x, int y, int endx, int endy)
+{
+	double	delta_x;
+	double	delta_y;
+	int		max;
 
-	double pixelX = beginX;
-	double pixelY = beginY;
+	x += fdf->zoom;
+	y += fdf->zoom;
+
+	endx += fdf->zoom;
+	endy += fdf->zoom;
+
+	delta_x = endx - x;
+	delta_y = endy - y;
+	max = fmax(mod(delta_x), mod(delta_y));
+	delta_x /= max;
+	delta_y /= max;
+
+	while ((int)(x - endx) || (int)(y - endy))
+	{
+		mlx_pixel_put(fdf->mlx, fdf->win, x, y, 0x00FFFF00);
+		x += delta_x;
+		y += delta_y;
+	}
+}
+
+void	fdf_draw_lines_(t_fdf *fdf, int beginX, int beginY, int endX, int endY)
+{
+	double	delta_x;
+	double	delta_y;
+	double	pixel_x;
+	double	pixel_y;
+	int		pixels;
+
+	beginX *= fdf->zoom;
+	beginY *= fdf->zoom;
+
+	endX *= fdf->zoom;
+	endY *= fdf->zoom;
+
+	delta_x = endX - beginX; // 10
+	delta_y = endY - beginY; // 0
+	pixels = sqrt((delta_x * delta_x) + (delta_y * delta_y));
+
+	delta_x /= pixels; // 1
+	delta_y /= pixels; // 0
+
+	pixel_x = beginX;
+	pixel_y = beginY;
 	while (pixels)
 	{
-		fdf_pixel_put(img, pixelX, pixelY, 0x00FFFF00);
-		pixelX += deltaX;
-		pixelY += deltaY;
+		fdf_pixel_put(fdf, pixel_x, pixel_y, 0x00FFFF00);
+		pixel_x += delta_x;
+		pixel_y += delta_y;
 		pixels--;
 	}
 }
 
-void	fdf_draw_circle(t_data *img, int x, int y, int r)
+void	fdf_draw_circle(t_fdf *fdf, int x, int y, int r)
 {
 	double	i;
 	double	angle;
@@ -45,12 +90,12 @@ void	fdf_draw_circle(t_data *img, int x, int y, int r)
 		angle = i;
 		x1 = r * cos(angle * M_PI / 180);
 		y1 = r * sin(angle * M_PI / 180);
-		fdf_pixel_put(img, x + x1, y + y1, 456);
+		fdf_pixel_put(fdf, x + x1, y + y1, 456);
 		i += 0.1;
 	}
 	for(int a=0; a < 6; a++)
 	{
-		fdf_draw_lines(img, 
+		fdf_draw_lines(fdf, 
 		x + r * cos(a * 60 * M_PI / 180), 
 		y + r * sin(a * 60 * M_PI / 180),
 		x + r * cos((a+1) * 60 * M_PI / 180), 
@@ -63,34 +108,34 @@ int	create_trgb(int t, int r, int g, int b)
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-void	fdf_draw_line(t_data *img, int x, int y, int lenght, int color)
+void	fdf_draw_line(t_fdf *fdf, int x, int y, int lenght, int color)
 {
 	int	pos;
 	pos = 0;
 	while (pos <= lenght)
 	{
 
-		fdf_pixel_put(img, x + pos, y, color);
+		fdf_pixel_put(fdf, x + pos, y, color);
 		pos++;
 	}
 }
 
-void	fdf_draw_square(t_data *img, int min, int max)
+void	fdf_draw_square(t_fdf *fdf, int min, int max)
 {
 	int	pos;
 	
 	pos = min;
 	while (pos <= max)
 	{
-		fdf_pixel_put(img, pos, min, 456);
-		fdf_pixel_put(img, pos, max, 456);
-		fdf_pixel_put(img, min, pos, 456);
-		fdf_pixel_put(img, max, pos, 456);
+		fdf_pixel_put(fdf, pos, min, 456);
+		fdf_pixel_put(fdf, pos, max, 456);
+		fdf_pixel_put(fdf, min, pos, 456);
+		fdf_pixel_put(fdf, max, pos, 456);
 		pos++;
 	}
 }
 
-void	color_map(void *img,int w,int h)
+void	color_map(void *fdf,int w,int h)
 {
 	int	x;
 	int	y;
@@ -102,7 +147,7 @@ void	color_map(void *img,int w,int h)
 		while (y--)
 		{
 			color = (x*255)/w+((((w-x)*255)/w)<<16)+(((y*255)/h)<<8);
-			fdf_draw_line(img, x, 1, y, color);
+			fdf_draw_line(fdf, x, 1, y, color);
 			
 		}
 	}
