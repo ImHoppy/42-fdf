@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:27:54 by hoppy             #+#    #+#             */
-/*   Updated: 2022/02/28 12:47:44 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/02/28 15:17:24 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	fdf_draw_lines(t_fdf *fdf, float x, float y, float endx, float endy)
 	y *= fdf->zoom;
 	endx *= fdf->zoom;
 	endy *= fdf->zoom;
-	if (z)
+	if (z || endz)
 		color = 0x00118DFF;
 	else
 		color = 0x000000FF;
@@ -42,10 +42,10 @@ void	fdf_draw_lines(t_fdf *fdf, float x, float y, float endx, float endy)
 	y = (x + y) * sin(fdf->angle) - z;
 	endx = (endx - endy) * cos(fdf->angle);
 	endy = (endx + endy) * sin(fdf->angle) - endz;
-	x += 150;
-	y += 150;
-	endx += 150;
-	endy += 150;
+	x += fdf->pos_x;
+	y += fdf->pos_y;
+	endx += fdf->pos_x;
+	endy += fdf->pos_y;
 	delta_x = endx - x;
 	delta_y = endy - y;
 	max = fmax(mod(delta_x), mod(delta_y));

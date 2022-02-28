@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 14:04:15 by mbraets           #+#    #+#             */
-/*   Updated: 2022/02/28 12:34:51 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/02/28 15:39:45 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,59 @@
 // 456 = BLUE
 
 // 65307 == esc
+
+
+void	draw(t_fdf *fdf)
+{
+	int	x;
+	int	y;
+
+	ft_memset(fdf->img.addr, 0x00181720, fdf->img.line_length * 1000);
+	y = 0;
+	while (y < fdf->height)
+	{
+		x = 0;
+		while (x < fdf->width)
+		{
+			if (x < fdf->width - 1)
+				fdf_draw_lines(fdf, x, y, x + 1, y);
+			if (y < fdf->height - 1)
+				fdf_draw_lines(fdf, x, y, x, y + 1);
+			x++;
+		}
+		y++;
+	}
+}
+
 int	fdf_key_hook(int keycode, void *data)
 {
 	t_fdf	*fdf = data;
 	dprintf(1, "%d\n", keycode);
-	if (keycode == 65307)
+	if (keycode == KEY_ESCAPE)
 	{
 		free_map(fdf, 0);
-
 		fexit(fdf);
 	}
+	if (keycode == KEY_UP)
+		fdf->zoom += 2;
+	if (keycode == KEY_DOWN)
+		fdf->zoom -= 2;
+	if (keycode == KEY_LEFT)
+		fdf->angle -= 0.1;
+	if (keycode == KEY_RIGHT)
+		fdf->angle += 0.1;
+	if (keycode == KEY_W)
+		fdf->pos_y -= 20;
+	if (keycode == KEY_S)
+		fdf->pos_y += 20;
+	if (keycode == KEY_A)
+		fdf->pos_x -= 20;
+	if (keycode == KEY_D)
+		fdf->pos_x += 20;
 
-	if (keycode == 65362)
-		fdf->zoom = fdf->zoom + 1;
-	if (keycode == 65364)
-		fdf->zoom = fdf->zoom - 1;
+	// mlx_clear_window(fdf->mlx, fdf->win);
+	draw(fdf);
+	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img.handle, 0, 0);
 	return (0);
 }
 /*
@@ -132,26 +170,6 @@ int	main(int argc, char **argv)
 // }
 */
 
-void	draw(t_fdf *fdf)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (y < fdf->height)
-	{
-		x = 0;
-		while (x < fdf->width)
-		{
-			if (x < fdf->width - 1)
-				fdf_draw_lines(fdf, x, y, x + 1, y);
-			if (y < fdf->height - 1)
-				fdf_draw_lines(fdf, x, y, x, y + 1);
-			x++;
-		}
-		y++;
-	}
-}
 int	main(int argc, char **argv)
 {
 	t_fdf	*fdf;
@@ -171,7 +189,9 @@ int	main(int argc, char **argv)
 	fdf->mlx = mlx_init();
 	if (!fdf->mlx)
 		fexit(fdf);
-	fdf->zoom = 20;
+	fdf->zoom = 1;
+	fdf->pos_x = 500;
+	fdf->pos_y = 500;
 	fdf->angle = 0.8;
 	fdf->win = mlx_new_window(fdf->mlx, 1000, 1000, "Fdf : mbraets"); // CHECK ERR
 	fdf->img.handle = mlx_new_image(fdf->mlx, 1000, 1000);
