@@ -6,31 +6,46 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:27:54 by hoppy             #+#    #+#             */
-/*   Updated: 2022/02/25 16:32:57 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/02/28 12:46:50 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-double	mod(double i)
+float	mod(double i)
 {
 	if (i < 0)
 		return (-i);
 	return (i);
 }
 
-void	fdf_draw_lines(t_fdf *fdf, int x, int y, int endx, int endy)
+void	fdf_draw_lines(t_fdf *fdf, float x, float y, float endx, float endy)
 {
-	double	delta_x;
-	double	delta_y;
+	float	delta_x;
+	float	delta_y;
 	int		max;
+	int		z;
+	int		endz;
+	int		color;
 
-	x += fdf->zoom;
-	y += fdf->zoom;
-
-	endx += fdf->zoom;
-	endy += fdf->zoom;
-
+	z = fdf->map[(int)y][(int)x];
+	endz = fdf->map[(int)endy][(int)endx];
+	x *= fdf->zoom;
+	y *= fdf->zoom;
+	endx *= fdf->zoom;
+	endy *= fdf->zoom;
+	if (z)
+		color = 0x00118DFF;
+	else
+		color = 0x000000FF;
+	x = (x - y) * cos(0.8);
+	y = (x + y) * sin(0.8) - z;
+	endx = (endx - endy) * cos(0.8);
+	endy = (endx + endy) * sin(0.8) - endz;
+	x += 150;
+	y += 150;
+	endx += 150;
+	endy += 150;
 	delta_x = endx - x;
 	delta_y = endy - y;
 	max = fmax(mod(delta_x), mod(delta_y));
@@ -39,7 +54,7 @@ void	fdf_draw_lines(t_fdf *fdf, int x, int y, int endx, int endy)
 
 	while ((int)(x - endx) || (int)(y - endy))
 	{
-		mlx_pixel_put(fdf->mlx, fdf->win, x, y, 0x00FFFF00);
+		fdf_pixel_put(fdf, x, y, color);
 		x += delta_x;
 		y += delta_y;
 	}
@@ -93,14 +108,14 @@ void	fdf_draw_circle(t_fdf *fdf, int x, int y, int r)
 		fdf_pixel_put(fdf, x + x1, y + y1, 456);
 		i += 0.1;
 	}
-	for(int a=0; a < 6; a++)
-	{
-		fdf_draw_lines(fdf, 
-		x + r * cos(a * 60 * M_PI / 180), 
-		y + r * sin(a * 60 * M_PI / 180),
-		x + r * cos((a+1) * 60 * M_PI / 180), 
-		y + r * sin((a+1) * 60 * M_PI / 180));
-	}
+	// for(int a=0; a < 6; a++)
+	// {
+	// 	fdf_draw_lines(fdf, 
+	// 	x + r * cos(a * 60 * M_PI / 180), 
+	// 	y + r * sin(a * 60 * M_PI / 180),
+	// 	x + r * cos((a+1) * 60 * M_PI / 180), 
+	// 	y + r * sin((a+1) * 60 * M_PI / 180));
+	// }
 }
 
 int	create_trgb(int t, int r, int g, int b)

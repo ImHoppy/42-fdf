@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:38:20 by mbraets           #+#    #+#             */
-/*   Updated: 2022/02/25 16:15:15 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/02/28 12:35:17 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_fdf {
 	void	*win;
 	int		**map;
 	int		zoom;
+	float	angle;
 	t_data	img;
 }	t_fdf;
 
@@ -45,12 +46,14 @@ typedef struct s_fdf {
 
 void	test(void);
 void	fexit(t_fdf	*fdf);
-int		fdf_key_hook(int keycode, void *fdf);
+// int		fdf_key_hook(int keycode, void *fdf);
 void	fdf_pixel_put(t_fdf *fdf, int x, int y, int color);
 
 
 // utils_draw
-void	fdf_draw_lines(t_fdf *fdf, int beginX, int beginY, int endX, int endY);
+void	fdf_draw_lines(t_fdf *fdf, float x, float y, float endx, float endy);
+void	fdf_draw_lines_(t_fdf *fdf, int beginX, int beginY, int endX, int endY);
+
 void	fdf_draw_circle(t_fdf *fdf, int x, int y, int r);
 int		create_trgb(int t, int r, int g, int b);
 void	fdf_draw_line(t_fdf *fdf, int x, int y, int lenght, int color);

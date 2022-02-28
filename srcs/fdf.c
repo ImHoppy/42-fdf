@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 14:04:15 by mbraets           #+#    #+#             */
-/*   Updated: 2022/02/25 16:35:42 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/02/28 12:34:51 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,10 @@ void	draw(t_fdf *fdf)
 		x = 0;
 		while (x < fdf->width)
 		{
-			fdf_draw_lines(fdf, x, y, x + 1, y);
-			fdf_draw_lines(fdf, x, y, x, y + 1);
+			if (x < fdf->width - 1)
+				fdf_draw_lines(fdf, x, y, x + 1, y);
+			if (y < fdf->height - 1)
+				fdf_draw_lines(fdf, x, y, x, y + 1);
 			x++;
 		}
 		y++;
@@ -170,17 +172,15 @@ int	main(int argc, char **argv)
 	if (!fdf->mlx)
 		fexit(fdf);
 	fdf->zoom = 20;
+	fdf->angle = 0.8;
 	fdf->win = mlx_new_window(fdf->mlx, 1000, 1000, "Fdf : mbraets"); // CHECK ERR
 	fdf->img.handle = mlx_new_image(fdf->mlx, 1000, 1000);
 	fdf->img.addr = mlx_get_data_addr(fdf->img.handle, &fdf->img.bits_per_pixel,
 			&fdf->img.line_length, &fdf->img.endian);
-	fdf_draw_lines(fdf, 10, 10, 600, 600);
 	draw(fdf);
-	// mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img.handle, 0, 0);
+	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img.handle, 0, 0);
 	mlx_key_hook(fdf->win, &fdf_key_hook, fdf);
 	mlx_loop(fdf->mlx);
-
-
 	free_map(fdf, 0);
 	fexit(fdf);
 }
