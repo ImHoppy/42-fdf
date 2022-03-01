@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 14:04:15 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/01 15:05:11 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/01 19:08:51 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	draw(t_fdf *fdf)
 		while (x < fdf->map_size.x)
 		{
 			if (x < fdf->map_size.x - 1)
-				fdf_isometric(fdf, x, y, x + 1, y);
+				fdf_isometric(fdf, (t_vector2){x, y}, x + 1, y);
 			if (y < fdf->map_size.y - 1)
-				fdf_isometric(fdf, x, y, x, y + 1);
+				fdf_isometric(fdf, (t_vector2){x, y}, x, y + 1);
 			x++;
 		}
 		y++;

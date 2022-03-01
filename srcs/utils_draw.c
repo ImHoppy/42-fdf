@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:27:54 by hoppy             #+#    #+#             */
-/*   Updated: 2022/03/01 17:17:23 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/01 19:09:17 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,34 @@ void	mul(float *x, float *y, int value)
 	*y *= value;
 }
 
-void	fdf_isometric(t_fdf *fdf, float x, float y, float endx, float endy)
+unsigned int	fade(int h)
+{
+	if (h > 100)
+		return (0xFFDF8D);
+	if (h > 75)
+		return (0xFFDE7A);
+	if (h > 50)
+		return (0xFFC568);
+	if (h > 25)
+		return (0xFD996B);
+	if (h > 15)
+		return (0xF7856C);
+	if (h > 10)
+		return (0xF06E6C);
+	if (h > 5)
+		return (0xD9576B);
+	if (h > 0)
+		return (0xA44369);
+	if (h > -10)
+		return (0x833F68);
+	if (h > -20)
+		return (0x833F68);
+	if (h > -50)
+		return (0x5E3C65);
+	return (0x3F3A63);
+}
+
+void	fdf_isometric(t_fdf *fdf, t_vector2 pos, float endx, float endy)
 {
 	float	delta_x;
 	float	delta_y;
@@ -34,34 +61,31 @@ void	fdf_isometric(t_fdf *fdf, float x, float y, float endx, float endy)
 	float	endz;
 	int		color;
 
-	z = fdf->map[(int)y][(int)x];
+	z = fdf->map[(int)pos.y][(int)pos.x];
 	endz = fdf->map[(int)endy][(int)endx];
-	mul(&x, &y, fdf->zoom);
+	mul(&pos.x, &pos.y, fdf->zoom);
 	mul(&endx, &endy, fdf->zoom);
 	mul(&z, &endz, fdf->depth);
-	if (z || endz)
-		color = 0x00118DFF;
-	else
-		color = 0x000000FF;
-	x = (x - y) * cos(fdf->angle);
-	y = (x + y) * sin(fdf->angle) - z;
+	color = fade(fmax(endz, z));
+	pos.x = (pos.x - pos.y) * cos(fdf->angle);
+	pos.y = (pos.x + pos.y) * sin(fdf->angle) - z;
 	endx = (endx - endy) * cos(fdf->angle);
 	endy = (endx + endy) * sin(fdf->angle) - endz;
-	x += fdf->pos.x;
-	y += fdf->pos.y;
+	pos.x += fdf->pos.x;
+	pos.y += fdf->pos.y;
 	endx += fdf->pos.x;
 	endy += fdf->pos.y;
-	delta_x = endx - x;
-	delta_y = endy - y;
+	delta_x = endx - pos.x;
+	delta_y = endy - pos.y;
 	max = fmax(mod(delta_x), mod(delta_y));
 	delta_x /= max;
 	delta_y /= max;
-	while ((int)(x - endx) || (int)(y - endy))
+	while ((int)(pos.x - endx) || (int)(pos.y - endy))
 	{
-		if ((x > 0 && x < fdf->scr_size.x) && (y > 0 && y < fdf->scr_size.y))
-			fdf_pixel_put(fdf, x, y, color);
-		x += delta_x;
-		y += delta_y;
+		if ((pos.x > 0 && pos.x < fdf->scr_size.x) && (pos.y > 0 && pos.y < fdf->scr_size.y))
+			fdf_pixel_put(fdf, pos.x, pos.y, color);
+		pos.x += delta_x;
+		pos.y += delta_y;
 	}
 }
 
