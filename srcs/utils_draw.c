@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:27:54 by hoppy             #+#    #+#             */
-/*   Updated: 2022/03/01 11:06:54 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/01 14:16:59 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ void	fdf_draw_lines(t_fdf *fdf, float x, float y, float endx, float endy)
 	y = (x + y) * sin(fdf->angle) - z;
 	endx = (endx - endy) * cos(fdf->angle);
 	endy = (endx + endy) * sin(fdf->angle) - endz;
-	x += fdf->pos_x;
-	y += fdf->pos_y;
-	endx += fdf->pos_x;
-	endy += fdf->pos_y;
+	x += fdf->pos.x;
+	y += fdf->pos.y;
+	endx += fdf->pos.x;
+	endy += fdf->pos.y;
 	delta_x = endx - x;
 	delta_y = endy - y;
 	max = fmax(mod(delta_x), mod(delta_y));
@@ -54,7 +54,7 @@ void	fdf_draw_lines(t_fdf *fdf, float x, float y, float endx, float endy)
 	while ((int)(x - endx) || (int)(y - endy))
 	{
 		// printf("%f %f\n", x, y);
-		if ((x > 0 && x < 1000) && (y > 0 && y < 1000))
+		if ((x > 0 && x < fdf->scr_size.x) && (y > 0 && y < fdf->scr_size.y))
 			fdf_pixel_put(fdf, x, y, color);
 		x += delta_x;
 		y += delta_y;
@@ -164,7 +164,6 @@ void	color_map(void *fdf,int w,int h)
 		{
 			color = (x*255)/w+((((w-x)*255)/w)<<16)+(((y*255)/h)<<8);
 			fdf_draw_line(fdf, x, 1, y, color);
-			
 		}
 	}
 }

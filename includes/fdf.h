@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:38:20 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/01 11:12:10 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/01 14:13:06 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@
 # include <stdio.h>
 # include <fcntl.h>
 
+typedef struct s_vector2
+{
+	int	x;
+	int	y;
+}	t_vector2;
+
+
 typedef struct s_data {
 	void	*handle;
 	char	*addr;
@@ -32,16 +39,17 @@ typedef struct s_data {
 }	t_data;
 
 typedef struct s_fdf {
-	int		height;
-	int		width;
-	void	*mlx;
-	void	*win;
-	int		**map;
-	int		zoom;
-	int		pos_x;
-	int		pos_y;
-	float	angle;
-	t_data	img;
+	void		*mlx;
+	void		*win;
+	float		angle;
+	int			zoom;
+	int			**map;
+	// int			height; //y
+	// int			width; //x
+	t_vector2	scr_size;
+	t_vector2	map_size;
+	t_vector2	pos;
+	t_data		img;
 }	t_fdf;
 
 
@@ -78,9 +86,9 @@ typedef struct s_fdf {
 # define KEY_N 0x006e
 # define KEY_M 0x006d
 # define ON_DESTROY 17
-void	test(void);
-void	fexit(t_fdf	*fdf);
-// int		fdf_key_hook(int keycode, void *fdf);
+
+int		fexit(t_fdf	*fdf);
+int		fdf_key_hook(int keycode, void *fdf);
 void	fdf_pixel_put(t_fdf *fdf, int x, int y, int color);
 
 
@@ -97,6 +105,6 @@ void	color_map(void *img,int w,int h);
 void	parse_file(char *file, t_fdf *fdf);
 void	free_map(t_fdf *fdf, int);
 
-
+void	draw(t_fdf *fdf);
 
 #endif

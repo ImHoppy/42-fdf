@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 12:48:03 by mbraets           #+#    #+#             */
-/*   Updated: 2022/02/25 15:48:30 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/01 14:13:43 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ static void	set_height_width(char *file, t_fdf *fdf)
 	int		fd;
 	char	*line;
 
-	fdf->height = 0;
+	fdf->map_size.y = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		exit(1); // FREE
 	line = get_next_line(fd);
-	fdf->width = ft_countword(line, ' ');
+	fdf->map_size.x = ft_countword(line, ' ');
 	while (line)
 	{
-		fdf->height++;
+		fdf->map_size.y++;
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -75,44 +75,23 @@ static void	fill_map_line(int *map_line, char *line)
 	free(split_line);
 }
 
-void	free_map(t_fdf *fdf, int true)
-{
-	int	i;
-
-	i = 0;
-	while (i < fdf->height)
-		free(fdf->map[i++]);
-	if (fdf->map)
-		free(fdf->map);
-	if (true)
-		exit(1);
-}
-void *xmalloc(size_t size)
-{
-	void *ptr;
-	ptr = malloc(size);
-	dprintf(1, "%p\n", ptr);
-	return (ptr);
-}
-
 static void	alloc_map( t_fdf *fdf)
 {
 	int		i;
 
-	fdf->map = xmalloc(sizeof(int *) * (fdf->height + 1));
+	fdf->map = malloc(sizeof(int *) * (fdf->map_size.y + 1));
 	if (!fdf->map)
 		exit(1);
 	i = 0;
-	while (i < fdf->height)
+	while (i < fdf->map_size.y)
 	{
-		fdf->map[i] = xmalloc(sizeof(int) * (fdf->width + 1));
+		fdf->map[i] = malloc(sizeof(int) * (fdf->map_size.x + 1));
 		if (!fdf->map[i])
 			free_map(fdf, 1);
 		i++;
 	}
 }
 
-#include <stdio.h>
 void	parse_file(char *file, t_fdf *fdf)
 {
 	int		fd;
