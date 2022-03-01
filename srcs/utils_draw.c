@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:27:54 by hoppy             #+#    #+#             */
-/*   Updated: 2022/02/28 15:17:24 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/01 11:06:54 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,11 @@ void	fdf_draw_lines(t_fdf *fdf, float x, float y, float endx, float endy)
 	max = fmax(mod(delta_x), mod(delta_y));
 	delta_x /= max;
 	delta_y /= max;
-
 	while ((int)(x - endx) || (int)(y - endy))
 	{
-		fdf_pixel_put(fdf, x, y, color);
+		// printf("%f %f\n", x, y);
+		if ((x > 0 && x < 1000) && (y > 0 && y < 1000))
+			fdf_pixel_put(fdf, x, y, color);
 		x += delta_x;
 		y += delta_y;
 	}

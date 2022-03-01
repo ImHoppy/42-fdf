@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 14:04:15 by mbraets           #+#    #+#             */
-/*   Updated: 2022/02/28 15:39:45 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/01 12:41:31 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,14 @@ int	fdf_key_hook(int keycode, void *data)
 	dprintf(1, "%d\n", keycode);
 	if (keycode == KEY_ESCAPE)
 	{
-		free_map(fdf, 0);
+		// free_map(fdf, 0);
 		fexit(fdf);
 	}
 	if (keycode == KEY_UP)
 		fdf->zoom += 2;
 	if (keycode == KEY_DOWN)
-		fdf->zoom -= 2;
+		if (fdf->zoom > 0)
+			fdf->zoom -= 2;
 	if (keycode == KEY_LEFT)
 		fdf->angle -= 0.1;
 	if (keycode == KEY_RIGHT)
@@ -77,6 +78,13 @@ int	fdf_key_hook(int keycode, void *data)
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img.handle, 0, 0);
 	return (0);
 }
+
+int	destroy(t_fdf	*fdf)
+{
+	fexit(fdf);
+	return (0);
+}
+
 /*
 
 int **ft_parse(int fd)
@@ -170,6 +178,8 @@ int	main(int argc, char **argv)
 // }
 */
 
+
+
 int	main(int argc, char **argv)
 {
 	t_fdf	*fdf;
@@ -189,18 +199,18 @@ int	main(int argc, char **argv)
 	fdf->mlx = mlx_init();
 	if (!fdf->mlx)
 		fexit(fdf);
-	fdf->zoom = 1;
+	fdf->zoom = 10;
 	fdf->pos_x = 500;
 	fdf->pos_y = 500;
 	fdf->angle = 0.8;
-	fdf->win = mlx_new_window(fdf->mlx, 1000, 1000, "Fdf : mbraets"); // CHECK ERR
+	fdf->win = mlx_new_window(fdf->mlx, 1000, 1000, "Fdf : mbraets");
 	fdf->img.handle = mlx_new_image(fdf->mlx, 1000, 1000);
 	fdf->img.addr = mlx_get_data_addr(fdf->img.handle, &fdf->img.bits_per_pixel,
 			&fdf->img.line_length, &fdf->img.endian);
 	draw(fdf);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img.handle, 0, 0);
 	mlx_key_hook(fdf->win, &fdf_key_hook, fdf);
+	mlx_hook(fdf->win, ON_DESTROY, 0, &destroy, fdf);
 	mlx_loop(fdf->mlx);
-	free_map(fdf, 0);
 	fexit(fdf);
 }

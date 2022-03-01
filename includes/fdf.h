@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:38:20 by mbraets           #+#    #+#             */
-/*   Updated: 2022/02/28 15:16:53 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/01 11:12:10 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct s_fdf {
 # define KEY_B 0x0062
 # define KEY_N 0x006e
 # define KEY_M 0x006d
-
+# define ON_DESTROY 17
 void	test(void);
 void	fexit(t_fdf	*fdf);
 // int		fdf_key_hook(int keycode, void *fdf);
