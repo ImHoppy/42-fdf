@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:27:54 by hoppy             #+#    #+#             */
-/*   Updated: 2022/03/01 14:16:59 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/01 17:17:23 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,26 @@ float	mod(double i)
 	return (i);
 }
 
-void	fdf_draw_lines(t_fdf *fdf, float x, float y, float endx, float endy)
+void	mul(float *x, float *y, int value)
+{
+	*x *= value;
+	*y *= value;
+}
+
+void	fdf_isometric(t_fdf *fdf, float x, float y, float endx, float endy)
 {
 	float	delta_x;
 	float	delta_y;
 	int		max;
-	int		z;
-	int		endz;
+	float	z;
+	float	endz;
 	int		color;
 
 	z = fdf->map[(int)y][(int)x];
 	endz = fdf->map[(int)endy][(int)endx];
-	x *= fdf->zoom;
-	y *= fdf->zoom;
-	endx *= fdf->zoom;
-	endy *= fdf->zoom;
+	mul(&x, &y, fdf->zoom);
+	mul(&endx, &endy, fdf->zoom);
+	mul(&z, &endz, fdf->depth);
 	if (z || endz)
 		color = 0x00118DFF;
 	else
@@ -53,7 +58,6 @@ void	fdf_draw_lines(t_fdf *fdf, float x, float y, float endx, float endy)
 	delta_y /= max;
 	while ((int)(x - endx) || (int)(y - endy))
 	{
-		// printf("%f %f\n", x, y);
 		if ((x > 0 && x < fdf->scr_size.x) && (y > 0 && y < fdf->scr_size.y))
 			fdf_pixel_put(fdf, x, y, color);
 		x += delta_x;
@@ -111,7 +115,7 @@ void	fdf_draw_circle(t_fdf *fdf, int x, int y, int r)
 	}
 	// for(int a=0; a < 6; a++)
 	// {
-	// 	fdf_draw_lines(fdf, 
+	// 	fdf_isometric(fdf, 
 	// 	x + r * cos(a * 60 * M_PI / 180), 
 	// 	y + r * sin(a * 60 * M_PI / 180),
 	// 	x + r * cos((a+1) * 60 * M_PI / 180), 

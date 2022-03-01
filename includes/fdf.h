@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:38:20 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/01 14:13:06 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/01 15:06:31 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_fdf {
 	float		angle;
 	int			zoom;
 	int			**map;
+	int			depth;
 	// int			height; //y
 	// int			width; //x
 	t_vector2	scr_size;
@@ -85,6 +86,8 @@ typedef struct s_fdf {
 # define KEY_B 0x0062
 # define KEY_N 0x006e
 # define KEY_M 0x006d
+# define KEY_P_UP 0xff55
+# define KEY_P_DOWN 0xff56
 # define ON_DESTROY 17
 
 int		fexit(t_fdf	*fdf);
@@ -93,7 +96,7 @@ void	fdf_pixel_put(t_fdf *fdf, int x, int y, int color);
 
 
 // utils_draw
-void	fdf_draw_lines(t_fdf *fdf, float x, float y, float endx, float endy);
+void	fdf_isometric(t_fdf *fdf, float x, float y, float endx, float endy);
 void	fdf_draw_lines_(t_fdf *fdf, int beginX, int beginY, int endX, int endY);
 
 void	fdf_draw_circle(t_fdf *fdf, int x, int y, int r);
