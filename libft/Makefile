@@ -71,10 +71,10 @@ bonus: ${OBJS} ${OBJS_B}
 	@echo Bonus..
 	@ar rcs ${NAME} $^
 
-gnl: ${GNL_O} bonus
-	@echo $<
+gnl: ${GNL_O}
+	@${MAKE} bonus
 	@echo Libft with gnl..
-	@ar rcs ${NAME} $<
+	@ar rcs ${NAME} $^
 
 clean:
 	@echo Deleting.. ${OBJS}
