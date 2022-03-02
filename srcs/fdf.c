@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 14:04:15 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/01 19:08:51 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/02 18:46:40 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@
 // https://fr.wikipedia.org/wiki/Sinus_(math%C3%A9matiques)
 // https://fr.wikipedia.org/wiki/Cosinus
 // Line algo
-// https://classic.csunplugged.org/documents/activities/community-activities/line-drawing/line-drawing.pdf
+// https://classic.csunplugged.org/documents/activities/community-activities/line-drawing/line-drawing.pdf\\
+
+// https://www.khanacademy.org/computing/computer-programming/programming-games-visualizations/programming-3d-shapes/a/rotating-3d-shapes
 
 // 456 = BLUE
 
@@ -37,9 +39,9 @@ void	draw(t_fdf *fdf)
 		while (x < fdf->map_size.x)
 		{
 			if (x < fdf->map_size.x - 1)
-				fdf_isometric(fdf, (t_vector2){x, y}, x + 1, y);
+				fdf_draw(fdf, (t_vector2){x, y}, (t_vector2){x + 1, y});
 			if (y < fdf->map_size.y - 1)
-				fdf_isometric(fdf, (t_vector2){x, y}, x, y + 1);
+				fdf_draw(fdf, (t_vector2){x, y}, (t_vector2){x, y + 1});
 			x++;
 		}
 		y++;
@@ -48,13 +50,12 @@ void	draw(t_fdf *fdf)
 
 void	fdf_init(t_fdf	*fdf)
 {
-	fdf->zoom = 15;
-	fdf->angle = 1.0;
-	fdf->scr_size.x = 1890;
-	fdf->scr_size.y = 720;
-	fdf->pos.x = (fdf->scr_size.x - fdf->zoom) / 2;
-	fdf->pos.y = (fdf->scr_size.y - fdf->zoom) / 2;
-	fdf->depth = 1;
+	*fdf = (t_fdf){
+		.map = fdf->map, .map_size = fdf->map_size,
+		.zoom = 15, .angle = 0, .depth = 1,
+		.scr_size.x = 1280, .scr_size.y = 720
+	};
+	fdf->pos = (t_vector2){.x = (fdf->scr_size.x - fdf->zoom) / 2, .y = (fdf->scr_size.y - fdf->zoom) / 2};
 }
 
 int	main(int argc, char **argv)

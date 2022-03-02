@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:38:20 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/01 19:09:06 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/02 18:40:01 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,10 @@ int		fexit(t_fdf	*fdf);
 int		fdf_key_hook(int keycode, void *fdf);
 void	fdf_pixel_put(t_fdf *fdf, int x, int y, int color);
 
+void	fdf_init(t_fdf	*fdf);
 
 // utils_draw
-void	fdf_isometric(t_fdf *fdf, t_vector2 pos, float endx, float endy);
+void	fdf_draw(t_fdf *fdf, t_vector2 pos, t_vector2 end);
 void	fdf_draw_lines_(t_fdf *fdf, int beginX, int beginY, int endX, int endY);
 
 void	fdf_draw_circle(t_fdf *fdf, int x, int y, int r);
