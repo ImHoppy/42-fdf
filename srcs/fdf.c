@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 14:04:15 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/02 18:46:40 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/02 18:53:44 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	main(int argc, char **argv)
 			&fdf->img.line_length, &fdf->img.endian);
 	draw(fdf);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img.handle, 0, 0);
-	mlx_key_hook(fdf->win, &fdf_key_hook, fdf);
+	mlx_key_hook(fdf->win, &fdf_key_hook, fdf); // reverse this commit f394d49614f54cc1fa0ba13351a64c078fe34140 and use mlx_hook(fdf->win, KEYPRESS, 0, &fdf_key_hook, fdf);
 	mlx_hook(fdf->win, ON_DESTROY, 0, &fexit, fdf);
 	mlx_loop(fdf->mlx);
 	fexit(fdf);

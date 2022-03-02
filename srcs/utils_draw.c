@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:27:54 by hoppy             #+#    #+#             */
-/*   Updated: 2022/03/02 18:45:53 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/02 18:50:45 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ void	fdf_draw(t_fdf *fdf, t_vector2 pos, t_vector2 end)
 	z = fdf->map[(int)pos.y][(int)pos.x];
 	endz = fdf->map[(int)end.y][(int)end.x];
 	
-	temp = (t_vector2){pos.x - fdf->map_size.x/2, pos.y - fdf->map_size.y/2};
-	endtemp = (t_vector2){end.x - fdf->map_size.x/2, end.y - fdf->map_size.y/2};
+	temp = (t_vector2){pos.x - fdf->map_size.x / 2, pos.y - fdf->map_size.y / 2};
+	endtemp = (t_vector2){end.x - fdf->map_size.x / 2, end.y - fdf->map_size.y / 2};
 	pos.x = temp.x * cos(fdf->angle) - temp.y * sin(fdf->angle);
 	pos.y = temp.y * cos(fdf->angle) + temp.x * sin(fdf->angle);
 	end.x = endtemp.x * cos(fdf->angle) - endtemp.y * sin(fdf->angle);
