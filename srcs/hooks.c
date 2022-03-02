@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 14:02:01 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/01 15:04:55 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/02 14:37:40 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ int	fdf_key_hook(int keycode, void *data)
 		fdf->angle -= 0.1;
 	if (keycode == KEY_RIGHT)
 		fdf->angle += 0.1;
-	if (keycode == KEY_W)
-		fdf->pos.y -= 20;
 	if (keycode == KEY_S)
+		fdf->pos.y -= 20;
+	if (keycode == KEY_W)
 		fdf->pos.y += 20;
-	if (keycode == KEY_A)
-		fdf->pos.x -= 20;
 	if (keycode == KEY_D)
+		fdf->pos.x -= 20;
+	if (keycode == KEY_A)
 		fdf->pos.x += 20;
 	if (keycode == KEY_P_UP)
 		fdf->depth += 1;
