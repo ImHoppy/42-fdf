@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:38:20 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/02 18:40:01 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/02 19:10:07 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_fdf {
 	float		angle;
 	int			zoom;
 	int			**map;
-	int			depth;
+	float			depth;
 	// int			height; //y
 	// int			width; //x
 	t_vector2	scr_size;

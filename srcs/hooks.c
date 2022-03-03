@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 14:02:01 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/02 17:10:07 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/02 19:09:42 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ int	fdf_key_hook(int keycode, void *data)
 	if (keycode == KEY_A)
 		fdf->pos.x += 20;
 	if (keycode == KEY_P_UP)
-		fdf->depth += 1;
+		fdf->depth += 0.1;
 	if (keycode == KEY_P_DOWN)
-		fdf->depth -= 1;
+		fdf->depth -= 0.1;
 	// mlx_clear_window(fdf->mlx, fdf->win);
 	draw(fdf);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img.handle, 0, 0);

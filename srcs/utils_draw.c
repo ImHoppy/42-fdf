@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:27:54 by hoppy             #+#    #+#             */
-/*   Updated: 2022/03/02 18:50:45 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/02 19:22:51 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ unsigned int	fade(int h)
 
 void	isometric(t_vector2 *pos, t_vector2 *end, float z, float endz)
 {
-	pos->x = (pos->x - pos->y) * cos(1);
-	pos->y = (pos->x + pos->y) * sin(1) - z;
-	end->x = (end->x - end->y) * cos(1);
-	end->y = (end->x + end->y) * sin(1) - endz;
+	pos->x = (pos->x - pos->y) * cos(0.8);
+	pos->y = (pos->x + pos->y) * sin(0.8) - z/2;
+	end->x = (end->x - end->y) * cos(0.8);
+	end->y = (end->x + end->y) * sin(0.8) - endz/2;
 }
 
 void	fdf_draw(t_fdf *fdf, t_vector2 pos, t_vector2 end)
@@ -107,7 +107,7 @@ void	fdf_draw(t_fdf *fdf, t_vector2 pos, t_vector2 end)
 	mul(&pos.x, &pos.y, fdf->zoom);
 	mul(&end.x, &end.y, fdf->zoom);
 	mul(&z, &endz, fdf->depth);
-	color = fade(fmax(endz, z));
+	color = minecraft_fade(fmax(endz, z));
 	// Isometric
 	isometric(&pos, &end, z, endz);
 	// pos.x = (pos.x - pos.y) * cos(1);
