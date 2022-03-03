@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 14:02:01 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/03 16:24:42 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/03 16:47:26 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	fdf_key_hook(int keycode, void *data)
 		fdf->depth -= 0.1;
 	fdf_key_move(keycode, fdf);
 	draw(fdf);
-	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img.handle, 0, 0);
+	if (keycode == KEY_R)
+		draw_hud(fdf);
 	return (0);
 }

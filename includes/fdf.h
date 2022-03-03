@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:38:20 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/03 16:34:41 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/03 16:47:49 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_vector2
 	float	y;
 }	t_vector2;
 
-
 typedef struct s_data {
 	void	*handle;
 	char	*addr;
@@ -47,14 +46,11 @@ typedef struct s_fdf {
 	int			color;
 	int			**map;
 	float		depth;
-	// int			height; //y
-	// int			width; //x
 	t_vector2	scr_size;
 	t_vector2	map_size;
 	t_vector2	pos;
 	t_data		img;
 }	t_fdf;
-
 
 # define KEY_ESCAPE 0xff1b
 
@@ -107,6 +103,7 @@ void			parse_file(char *file, t_fdf *fdf);
 void			free_map(t_fdf *fdf, int true);
 
 void			draw(t_fdf *fdf);
+void			draw_hud(t_fdf *fdf);
 
 // Math
 float			mod(double i);

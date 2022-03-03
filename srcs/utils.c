@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:13:20 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/03 14:03:04 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/03 16:36:48 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	fdf_pixel_put(t_fdf *fdf, int x, int y, int color)
 	{
 		dst = fdf->img.addr + (y * fdf->img.line_length + x * \
 		(fdf->img.bits_per_pixel / 8));
-		*(unsigned int*)dst = color;
+		*(unsigned int *)dst = color;
 	}
 }
 

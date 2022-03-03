@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 12:48:03 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/01 15:01:06 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/03 17:04:15 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	set_height_width(char *file, t_fdf *fdf)
 	if (fd < 0)
 	{
 		free(fdf);
-		exit(1); // FREE
+		exit(1);
 	}
 	line = get_next_line(fd);
 	fdf->map_size.x = ft_countword(line, ' ');
@@ -104,6 +104,8 @@ void	parse_file(char *file, t_fdf *fdf)
 	set_height_width(file, fdf);
 	alloc_map(fdf);
 	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		free_map(fdf, 1);
 	i = 0;
 	line = get_next_line(fd);
 	while (line)

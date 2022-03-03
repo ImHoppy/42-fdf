@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:59:25 by hoppy             #+#    #+#             */
-/*   Updated: 2022/02/09 15:05:50 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/03 16:37:08 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ char	*gnl_strjoin(char *s1, char *s2)
 	char	*result;
 	int		size1;
 	int		size2;
-
 
 	size1 = gnl_strlen(s1);
 	size2 = gnl_strlen(s2);
