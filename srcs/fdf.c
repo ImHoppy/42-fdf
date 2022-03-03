@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 14:04:15 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/03 12:40:04 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/03 14:58:55 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,14 @@ void	draw(t_fdf *fdf)
 void	fdf_init(t_fdf	*fdf)
 {
 	*fdf = (t_fdf){
-		.mlx = fdf->mlx, .img = fdf->img, .win = fdf->win, .projection = 1,
+		.mlx = fdf->mlx, .img = fdf->img, .win = fdf->win,
+		.projection = 1, .color = 0,
 		.map = fdf->map, .map_size = fdf->map_size,
 		.zoom = 15, .angle = 0, .depth = 1,
 		.scr_size.x = 1280, .scr_size.y = 720
 	};
-	fdf->pos = (t_vector2){.x = (fdf->scr_size.x - fdf->zoom) / 2, .y = (fdf->scr_size.y - fdf->zoom) / 2};
+	fdf->pos = (t_vector2){.x = (fdf->scr_size.x - fdf->zoom) / 2, \
+	.y = (fdf->scr_size.y - fdf->zoom) / 2};
 }
 
 int	main(int argc, char **argv)
@@ -67,19 +69,12 @@ int	main(int argc, char **argv)
 		return (2);
 	fdf = malloc(sizeof(struct s_fdf));
 	parse_file(argv[1], fdf);
-	for (int i = 0; i < fdf->map_size.y; i++)
-	{
-		for (int j = 0; j < fdf->map_size.x; j++)
-		{
-			printf("%3d", fdf->map[i][j]);
-		}
-		printf("\n");
-	}
 	fdf_init(fdf);
 	fdf->mlx = mlx_init();
 	if (!fdf->mlx)
 		fexit(fdf);
-	fdf->win = mlx_new_window(fdf->mlx, fdf->scr_size.x, fdf->scr_size.y, "Fdf : mbraets");
+	fdf->win = mlx_new_window(fdf->mlx, fdf->scr_size.x, \
+	fdf->scr_size.y, "Fdf : mbraets");
 	fdf->img.handle = mlx_new_image(fdf->mlx, fdf->scr_size.x, fdf->scr_size.y);
 	fdf->img.addr = mlx_get_data_addr(fdf->img.handle, &fdf->img.bits_per_pixel,
 			&fdf->img.line_length, &fdf->img.endian);

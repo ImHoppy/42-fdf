@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:38:20 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/03 14:03:15 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/03 14:54:06 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,6 @@ float			mod(double i);
 void			mul(float *x, float *y, float value);
 unsigned int	minecraft_fade(int h);
 unsigned int	fade(int h);
-
+unsigned int	test_fade(int h);
 
 #endif
