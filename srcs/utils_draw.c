@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:27:54 by hoppy             #+#    #+#             */
-/*   Updated: 2022/03/03 14:58:41 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/03 15:45:45 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ void	fdf_draw_lines(t_fdf *fdf, t_vector2 pos, t_vector2 end, t_vector2 z)
 	delta_x /= max;
 	delta_y /= max;
 	if (fdf->color % 3 == 0)
-		color = test_fade(fmax(z.x, z.y));
+		color = default_fade(fmax(z.x, z.y));
 	if (fdf->color % 3 == 1)
-		color = fade(fmax(z.x, z.y));
+		color = orange_fade(fmax(z.x, z.y));
 	if (fdf->color % 3 == 2)
 		color = minecraft_fade(fmax(z.x, z.y));
 	while ((int)(pos.x - end.x) || (int)(pos.y - end.y))

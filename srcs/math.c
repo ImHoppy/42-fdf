@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 13:55:35 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/03 14:58:09 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/03 15:45:09 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ unsigned int	minecraft_fade(int h)
 	return (0x05093d);
 }
 
-unsigned int	test_fade(int h)
+unsigned int	default_fade(int h)
 {
 	if (h > 100)
 		return (0x19323C);
@@ -73,7 +73,7 @@ unsigned int	test_fade(int h)
 	return (0x650D1B);
 }
 
-unsigned int	fade(int h)
+unsigned int	orange_fade(int h)
 {
 	if (h > 100)
 		return (0xFFDF8D);
