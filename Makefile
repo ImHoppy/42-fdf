@@ -6,12 +6,12 @@
 #    By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/11 11:16:36 by mbraets           #+#    #+#              #
-#    Updated: 2022/03/01 14:24:11 by mbraets          ###   ########.fr        #
+#    Updated: 2022/03/03 14:01:42 by mbraets          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 EXEC	= fdf
-SRCS	= fdf.c utils.c utils_draw.c parse.c hooks.c
+SRCS	= fdf.c utils.c utils_draw.c parse.c hooks.c math.c
 HEADER	= fdf.h
 SRC_D	= srcs/
 OBJ_D	= obj/

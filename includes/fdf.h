@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:38:20 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/03 12:30:12 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/03 14:03:15 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_fdf {
 	float		angle;
 	int			zoom;
 	int			projection;
+	int			color;
 	int			**map;
 	float		depth;
 	// int			height; //y
@@ -91,25 +92,27 @@ typedef struct s_fdf {
 # define KEY_P_DOWN 0xff56
 # define ON_DESTROY 17
 
-int		fexit(t_fdf	*fdf);
-int		fdf_key_hook(int keycode, void *fdf);
-void	fdf_pixel_put(t_fdf *fdf, int x, int y, int color);
+int				fexit(t_fdf	*fdf);
+int				fdf_key_hook(int keycode, void *fdf);
+void			fdf_pixel_put(t_fdf *fdf, int x, int y, int color);
 
-void	fdf_init(t_fdf	*fdf);
+void			fdf_init(t_fdf	*fdf);
 
 // utils_draw
-void	fdf_draw(t_fdf *fdf, t_vector2 pos, t_vector2 end);
-void	fdf_draw_lines(t_fdf *fdf, t_vector2 pos, t_vector2 end, t_vector2 z);
+void			fdf_draw(t_fdf *fdf, t_vector2 pos, t_vector2 end);
+void			fdf_draw_lines(t_fdf *fdf, \
+t_vector2 pos, t_vector2 end, t_vector2 z);
 
-void	fdf_draw_circle(t_fdf *fdf, int x, int y, int r);
-int		create_trgb(int t, int r, int g, int b);
-void	fdf_draw_line(t_fdf *fdf, int x, int y, int lenght, int color);
-void	fdf_draw_square(t_fdf *fdf, int min, int max);
-void	color_map(void *img,int w,int h);
+void			parse_file(char *file, t_fdf *fdf);
+void			free_map(t_fdf *fdf, int true);
 
-void	parse_file(char *file, t_fdf *fdf);
-void	free_map(t_fdf *fdf, int);
+void			draw(t_fdf *fdf);
 
-void	draw(t_fdf *fdf);
+// Math
+float			mod(double i);
+void			mul(float *x, float *y, float value);
+unsigned int	minecraft_fade(int h);
+unsigned int	fade(int h);
+
 
 #endif
