@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 14:02:01 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/03 12:58:05 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/03 13:48:22 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	fdf_key_hook(int keycode, void *data)
 		fexit(fdf);
 	if (keycode == KEY_P)
 		fdf->projection = -fdf->projection;
+	if (keycode == KEY_C)
+		fdf->color = -fdf->color;
 	if (keycode == KEY_R)
 		fdf_init(fdf);
 	if (keycode == KEY_UP)
