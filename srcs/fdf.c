@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 14:04:15 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/02 19:12:02 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/03 12:40:04 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,10 @@ void	draw(t_fdf *fdf)
 void	fdf_init(t_fdf	*fdf)
 {
 	*fdf = (t_fdf){
+		.mlx = fdf->mlx, .img = fdf->img, .win = fdf->win, .projection = 1,
 		.map = fdf->map, .map_size = fdf->map_size,
 		.zoom = 15, .angle = 0, .depth = 1,
-		.scr_size.x = 1980, .scr_size.y = 1080
+		.scr_size.x = 1280, .scr_size.y = 720
 	};
 	fdf->pos = (t_vector2){.x = (fdf->scr_size.x - fdf->zoom) / 2, .y = (fdf->scr_size.y - fdf->zoom) / 2};
 }

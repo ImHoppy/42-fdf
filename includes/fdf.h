@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:38:20 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/02 19:10:07 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/03 12:30:12 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ typedef struct s_fdf {
 	void		*win;
 	float		angle;
 	int			zoom;
+	int			projection;
 	int			**map;
-	float			depth;
+	float		depth;
 	// int			height; //y
 	// int			width; //x
 	t_vector2	scr_size;
@@ -98,7 +99,7 @@ void	fdf_init(t_fdf	*fdf);
 
 // utils_draw
 void	fdf_draw(t_fdf *fdf, t_vector2 pos, t_vector2 end);
-void	fdf_draw_lines_(t_fdf *fdf, int beginX, int beginY, int endX, int endY);
+void	fdf_draw_lines(t_fdf *fdf, t_vector2 pos, t_vector2 end, t_vector2 z);
 
 void	fdf_draw_circle(t_fdf *fdf, int x, int y, int r);
 int		create_trgb(int t, int r, int g, int b);

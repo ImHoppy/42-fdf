@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 14:02:01 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/02 19:09:42 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/03 12:58:05 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ int	fdf_key_hook(int keycode, void *data)
 	dprintf(1, "%d\n", keycode);
 	if (keycode == KEY_ESCAPE)
 		fexit(fdf);
-	// if (keycode == KEY_R)
-		// fdf_init(fdf);
+	if (keycode == KEY_P)
+		fdf->projection = -fdf->projection;
+	if (keycode == KEY_R)
+		fdf_init(fdf);
 	if (keycode == KEY_UP)
 		fdf->zoom += 2;
 	if (keycode == KEY_DOWN)

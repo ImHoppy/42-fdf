@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 19:27:54 by hoppy             #+#    #+#             */
-/*   Updated: 2022/03/02 19:22:51 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/03 12:57:06 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ void	mul(float *x, float *y, float value)
 {
 	*x *= value;
 	*y *= value;
+}
+
+void	_div(float *x, float *y, float value)
+{
+	*x /= value;
+	*y /= value;
 }
 
 unsigned int	minecraft_fade(int h)
@@ -75,22 +81,23 @@ unsigned int	fade(int h)
 	return (0x3F3A63);
 }
 
+float	deg_rad(float angle)
+{
+	return (angle * M_PI / 180);
+}
+
 void	isometric(t_vector2 *pos, t_vector2 *end, float z, float endz)
 {
-	pos->x = (pos->x - pos->y) * cos(0.8);
-	pos->y = (pos->x + pos->y) * sin(0.8) - z/2;
-	end->x = (end->x - end->y) * cos(0.8);
-	end->y = (end->x + end->y) * sin(0.8) - endz/2;
+	pos->x = (pos->x - pos->y) * cos(1);
+	pos->y = (pos->x + pos->y) * sin(1) - z;
+	end->x = (end->x - end->y) * cos(1);
+	end->y = (end->x + end->y) * sin(1) - endz;
 }
 
 void	fdf_draw(t_fdf *fdf, t_vector2 pos, t_vector2 end)
 {
-	float	delta_x;
-	float	delta_y;
-	int		max;
 	float	z;
 	float	endz;
-	int		color;
 	t_vector2 temp;
 	t_vector2 endtemp;
 
@@ -107,61 +114,35 @@ void	fdf_draw(t_fdf *fdf, t_vector2 pos, t_vector2 end)
 	mul(&pos.x, &pos.y, fdf->zoom);
 	mul(&end.x, &end.y, fdf->zoom);
 	mul(&z, &endz, fdf->depth);
-	color = minecraft_fade(fmax(endz, z));
 	// Isometric
-	isometric(&pos, &end, z, endz);
-	// pos.x = (pos.x - pos.y) * cos(1);
-	// pos.y = (pos.x + pos.y) * sin(1) - z;
-	// end.x = (end.x - end.y) * cos(1);
-	// end.y = (end.x + end.y) * sin(1) - endz;
+	if (fdf->projection == 1)
+		isometric(&pos, &end, z, endz);
 	// Moving
 	pos.x += fdf->pos.x;
 	pos.y += fdf->pos.y;
 	end.x += fdf->pos.x;
 	end.y += fdf->pos.y;
+	fdf_draw_lines(fdf, pos, end, (t_vector2){z, endz});
+}
+
+void	fdf_draw_lines(t_fdf *fdf, t_vector2 pos, t_vector2 end, t_vector2 z)
+{
+	float	delta_x;
+	float	delta_y;
+	int		max;
+	int		color;
+
 	delta_x = end.x - pos.x;
 	delta_y = end.y - pos.y;
 	max = fmax(mod(delta_x), mod(delta_y));
 	delta_x /= max;
 	delta_y /= max;
+	color = minecraft_fade(fmax(z.x, z.y));
 	while ((int)(pos.x - end.x) || (int)(pos.y - end.y))
 	{
-		// if ((pos.x > 0 && pos.x < fdf->scr_size.x) && (pos.y > 0 && pos.y < fdf->scr_size.y))
 		fdf_pixel_put(fdf, pos.x, pos.y, color);
 		pos.x += delta_x;
 		pos.y += delta_y;
-	}
-}
-
-void	fdf_draw_lines_(t_fdf *fdf, int beginX, int beginY, int endX, int endY)
-{
-	double	delta_x;
-	double	delta_y;
-	double	pixel_x;
-	double	pixel_y;
-	int		pixels;
-
-	beginX *= fdf->zoom;
-	beginY *= fdf->zoom;
-
-	endX *= fdf->zoom;
-	endY *= fdf->zoom;
-
-	delta_x = endX - beginX; // 10
-	delta_y = endY - beginY; // 0
-	pixels = sqrt((delta_x * delta_x) + (delta_y * delta_y));
-
-	delta_x /= pixels; // 1
-	delta_y /= pixels; // 0
-
-	pixel_x = beginX;
-	pixel_y = beginY;
-	while (pixels)
-	{
-		fdf_pixel_put(fdf, pixel_x, pixel_y, 0x00FFFF00);
-		pixel_x += delta_x;
-		pixel_y += delta_y;
-		pixels--;
 	}
 }
 
