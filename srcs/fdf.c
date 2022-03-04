@@ -6,22 +6,12 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 14:04:15 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/03 17:02:39 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/04 11:39:17 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <stdio.h>
-
-// https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html
-// https://fr.wikipedia.org/wiki/Sinus_(math%C3%A9matiques)
-// https://fr.wikipedia.org/wiki/Cosinus
-// Line algo
-// https://classic.csunplugged.org/documents/activities/community-activities/line-drawing/line-drawing.pdf\\
-
-// https://www.khanacademy.org/computing/computer-programming/programming-games-visualizations/programming-3d-shapes/a/rotating-3d-shapes
-
-// 456 = BLUE
 
 void	draw_hud(t_fdf *fdf)
 {
@@ -103,7 +93,7 @@ int	main(int argc, char **argv)
 			&fdf->img.line_length, &fdf->img.endian);
 	draw(fdf);
 	draw_hud(fdf);
-	mlx_key_hook(fdf->win, &fdf_key_hook, fdf); // reverse this commit f394d49614f54cc1fa0ba13351a64c078fe34140 and use mlx_hook(fdf->win, KEYPRESS, 0, &fdf_key_hook, fdf);
+	mlx_key_hook(fdf->win, &fdf_key_hook, fdf);
 	mlx_hook(fdf->win, ON_DESTROY, 0, &fexit, fdf);
 	mlx_loop(fdf->mlx);
 	fexit(fdf);

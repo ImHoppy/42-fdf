@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:13:20 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/03 16:36:48 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/04 12:23:25 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	fdf_pixel_put(t_fdf *fdf, int x, int y, int color)
 	}
 }
 
-void	free_map(t_fdf *fdf, int true)
+void	free_map(t_fdf *fdf, int error)
 {
 	int	i;
 
@@ -51,6 +51,17 @@ void	free_map(t_fdf *fdf, int true)
 		free(fdf->map);
 	if (fdf)
 		free(fdf);
-	if (true)
+	if (error)
+		ft_putstr_fd("Error\n", 2);
+	exit(1);
+}
+
+void	check_file(char *file, t_fdf *fdf)
+{
+	if (ft_strlen(file) > 4 && ft_strcmp(file + ft_strlen(file) - 4, ".fdf"))
+	{
+		free(fdf);
+		ft_putstr_fd("Error\n", 2);
 		exit(1);
+	}
 }

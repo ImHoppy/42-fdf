@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 12:48:03 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/03 17:04:15 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/03/04 12:23:48 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void	set_height_width(char *file, t_fdf *fdf)
 	if (fd < 0)
 	{
 		free(fdf);
+		ft_putstr_fd("Error\n", 2);
 		exit(1);
 	}
 	line = get_next_line(fd);
@@ -101,6 +102,7 @@ void	parse_file(char *file, t_fdf *fdf)
 	int		i;
 	char	*line;
 
+	check_file(file, fdf);
 	set_height_width(file, fdf);
 	alloc_map(fdf);
 	fd = open(file, O_RDONLY);
