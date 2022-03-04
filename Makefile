@@ -6,7 +6,7 @@
 #    By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/11 11:16:36 by mbraets           #+#    #+#              #
-#    Updated: 2022/03/03 14:01:42 by mbraets          ###   ########.fr        #
+#    Updated: 2022/03/04 12:32:08 by mbraets          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,8 +53,10 @@ $(EXEC): $(OBJ) $(HEADER_D)
 	@printf "$(ccgreen)Compiled "$@" successfully!$(ccend)\n"
 all: $(EXEC)
 clean:
-	rm -rf $(OBJ) 
+	rm -rf $(OBJ)
 fclean: clean
 	rm -rf $(EXEC)
+	$(MAKE) -C libft fclean
+	$(MAKE) -C minilibx clean
 re: fclean all
 .PHONY: clean fclean all
