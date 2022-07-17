@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoppy <hoppy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 14:02:01 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/02 22:20:28 by hoppy            ###   ########.fr       */
+/*   Updated: 2022/07/17 18:33:56 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int	fdf_key_hook(int keycode, void *data)
 		fdf->pos.x -= 20;
 	if (keycode == KEY_A)
 		fdf->pos.x += 20;
-	if (keycode == KEY_P_UP)
+	if (keycode == KEY_P_UP || keycode == 61)
 		fdf->depth += 0.1;
-	if (keycode == KEY_P_DOWN)
+	if (keycode == KEY_P_DOWN  || keycode == 45)
 		fdf->depth -= 0.1;
 	// mlx_clear_window(fdf->mlx, fdf->win);
 	draw(fdf);
