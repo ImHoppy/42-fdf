@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 14:02:01 by mbraets           #+#    #+#             */
-/*   Updated: 2022/03/03 16:47:26 by mbraets          ###   ########.fr       */
+/*   Updated: 2022/07/17 18:40:00 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int	fdf_key_hook(int keycode, void *data)
 	if (keycode == KEY_DOWN)
 		if (fdf->zoom > 2)
 			fdf->zoom -= 1;
-	if (keycode == KEY_P_UP)
+	if (keycode == KEY_P_UP || keycode == 61)
 		fdf->depth += 0.1;
-	if (keycode == KEY_P_DOWN)
+	if (keycode == KEY_P_DOWN  || keycode == 45)
 		fdf->depth -= 0.1;
 	fdf_key_move(keycode, fdf);
 	draw(fdf);
