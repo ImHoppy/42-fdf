@@ -6,7 +6,7 @@
 /*   By: mbraets <mbraets@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 12:23:39 by mbraets           #+#    #+#             */
-/*   Updated: 2021/12/02 18:41:56 by mbraets          ###   ########.fr       */
+/*   Updated: 2024/04/02 16:23:49 by mbraets          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static size_t	ft_countword(char const *s, char c)
 
 	len = 0;
 	i = 0;
-	if (s || !*s)
+	if (!s || !*s)
 		return (0);
 	while (s[i] && s[i] == c)
 		i++;
