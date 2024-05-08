@@ -64,14 +64,23 @@ void	draw(t_fdf *fdf)
 void	fdf_init(t_fdf	*fdf)
 {
 	*fdf = (t_fdf){
-		.mlx = fdf->mlx, .img = fdf->img, .win = fdf->win,
-		.projection = 1, .color = 0,
-		.map = fdf->map, .map_size = fdf->map_size,
-		.zoom = 15, .angle = 0, .depth = 1,
-		.scr_size.x = 1920, .scr_size.y = 1080
+		.mlx = fdf->mlx,
+		.img = fdf->img,
+		.win = fdf->win,
+		.projection = 1,
+		.color = 0,
+		.map = fdf->map,
+		.map_size = fdf->map_size,
+		.zoom = 15,
+		.angle = 0,
+		.depth = 1,
+		.scr_size.x = 1920,
+		.scr_size.y = 1080
 	};
-	fdf->pos = (t_vector2){.x = (fdf->scr_size.x - fdf->zoom) / 2, \
-	.y = (fdf->scr_size.y - fdf->zoom) / 2};
+	fdf->pos = (t_vector2){
+		.x = (fdf->scr_size.x - fdf->zoom) / 2,
+		.y = (fdf->scr_size.y - fdf->zoom) / 2
+	};
 }
 
 int	main(int argc, char **argv)
