@@ -45,7 +45,7 @@ void	fdf_draw(t_fdf *fdf, t_vector2 pos, t_vector2 end)
 	mul(&end.x, &end.y, fdf->zoom);
 	mul(&z, &endz, fdf->depth);
 	if (fdf->projection == 1)
-		isometric(&pos, &end, z, endz);
+		isometric(&pos, &end, z * (fdf->zoom * 0.1), endz * (fdf->zoom * 0.1));
 	pos.x += fdf->pos.x;
 	pos.y += fdf->pos.y;
 	end.x += fdf->pos.x;

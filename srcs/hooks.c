@@ -48,7 +48,7 @@ int	fdf_key_hook(int keycode, void *data)
 			fdf->zoom -= 1;
 	if (keycode == KEY_P_UP || keycode == 61)
 		fdf->depth += 0.1;
-	if (keycode == KEY_P_DOWN  || keycode == 45)
+	if (keycode == KEY_P_DOWN || keycode == 45)
 		fdf->depth -= 0.1;
 	fdf_key_move(keycode, fdf);
 	draw(fdf);
